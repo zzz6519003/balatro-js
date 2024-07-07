@@ -114,7 +114,7 @@ function deal (){
 }
 
 function nextStep(e1){
-    if (!card.flipped){
+    if (!card1.flipped){
         card1.flip();
         card2.flip();
         card3.flip();
@@ -125,7 +125,7 @@ function nextStep(e1){
 
     } else if (!card5.flipped) {
         card5.flip();
-        el.innerHTML="New Round";
+        e1.innerHTML="New Round";
     } else { 
         deal();
         e1.innerHTML="Reveal the first 3 cards.";
