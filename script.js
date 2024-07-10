@@ -59,10 +59,7 @@ class Card{
 
     displayCard(placeholder,flipped=true){
         this.placeholder = document.getElementById(placeholder);
-        if (!this.placeholder){
-            console.error('Element with id $(placeholder) nopt found.')
-            return;
-        }
+
 
         this.placeholder.classList.add("card");
         this.flipped = flipped;
@@ -137,9 +134,16 @@ function nextStep(e1){
         document.getElementById('value').innerHTML = "Value:" + total_value;
     } else { 
         total_value = 0;
-        
+        card1.flip();
+        card2.flip();
+        card3.flip();
+        card4.flip();
+        card5.flip();
+
         deal();
         e1.innerHTML="Reveal the first 3 cards.";
+        total_value = playerCard1.value + playerCard2.value
+        document.getElementById('value').innerHTML = "Value:" + total_value;
     }
 
 }
