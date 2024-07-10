@@ -115,18 +115,29 @@ function deal (){
 
 function nextStep(e1){
     if (!card1.flipped){
+        total_value = playerCard1.value + playerCard2.value + card1.value + card2.value + card3.value;
+        
         card1.flip();
         card2.flip();
         card3.flip();
         e1.innerHTML = "Reveal 4<sup>th</sup> card";
+        document.getElementById('value').innerHTML = "Value:" + total_value;
     } else if (!card4.flipped) {
+        total_value = total_value + card4.value;
+        
         card4.flip();
         e1.innerHTML = "Reveal 5<sup>th</sup> card";
+        document.getElementById('value').innerHTML = "Value:" + total_value;
 
     } else if (!card5.flipped) {
+        total_value = total_value + card5.value;
+
         card5.flip();
         e1.innerHTML="New Round";
+        document.getElementById('value').innerHTML = "Value:" + total_value;
     } else { 
+        total_value = 0;
+        
         deal();
         e1.innerHTML="Reveal the first 3 cards.";
     }
