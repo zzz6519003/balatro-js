@@ -111,28 +111,43 @@ function deal (){
 }
 
 function nextStep(e1){
-    if (!card1.flipped){
+    if (!card1.flipped){ //Second Round
+        required = 100; // placeholder
         total_value = playerCard1.value + playerCard2.value + card1.value + card2.value + card3.value;
+        mult = 1 // placeholder
+        total_all = total_value * mult 
         
         card1.flip();
         card2.flip();
         card3.flip();
         e1.innerHTML = "Reveal 4<sup>th</sup> card";
+        document.getElementById('required').innerHTML = "Required to win:" + required;
         document.getElementById('value').innerHTML = "Value:" + total_value;
-    } else if (!card4.flipped) {
+        document.getElementById('mult').innerHTML = "Mult:" + mult;
+        document.getElementById('total').innerHTML = "Total:" + total_all;
+    } else if (!card4.flipped) { //Third Round
         total_value = total_value + card4.value;
         
         card4.flip();
         e1.innerHTML = "Reveal 5<sup>th</sup> card";
         document.getElementById('value').innerHTML = "Value:" + total_value;
 
-    } else if (!card5.flipped) {
+    } else if (!card5.flipped) { // Last Round
         total_value = total_value + card5.value;
 
         card5.flip();
-        e1.innerHTML="New Round";
         document.getElementById('value').innerHTML = "Value:" + total_value;
-    } else { 
+        document.getElementById('mult').innerHTML = "Mult:" + mult;
+        document.getElementById('total').innerHTML = "Total:" + total_all;
+
+        if (total_all >= required){
+            document.getElementById('win').innerHTML = "You won!";
+        } else {
+            document.getElementById('win').innerHTML = "You lost!";
+        }
+
+        e1.innerHTML="New Round";
+    } else { // First Round
         total_value = 0;
         card1.flip();
         card2.flip();
