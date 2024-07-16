@@ -110,6 +110,14 @@ function deal (){
 
 }
 
+function mult_analyzer (){
+    //takes currently flipped cards (card.flipped)
+    //if matches various pokerhands, improves the mult
+    //mult just based on how rare the hand is 
+}
+
+
+
 function nextStep(e1){
     if (!card1.flipped){ //Second Round
         required = 50; // placeholder
@@ -148,6 +156,7 @@ function nextStep(e1){
 
         if (total_all >= required){
             document.getElementById('win').innerHTML = "You won!";
+            //change the required to a higher number
         } else {
             document.getElementById('win').innerHTML = "You lost!";
         }
