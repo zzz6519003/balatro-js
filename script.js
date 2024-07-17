@@ -83,6 +83,72 @@ class Card{
 
 }
 
+const handRanks = { //mult values for each hand 
+    'High Card': 1,
+    'Pair': 2,
+    'Two Pair': 3,
+    'Three of a Kind': 4,
+    'Straight': 5,
+    'Flush': 6,
+    'Full House': 7,
+    'Four of a Kind': 8,
+    'Straight Flush': 9,
+    'Royal Flush': 10
+};
+
+function getCardCounts(deck) { //from a deck, get an understanding of the suits and values
+    let valueCounts = {};
+    let suitCounts = {};
+
+    for (let card of deck) {
+        valueCounts[card.value] = (valueCounts[card.value] || 0) + 1;
+        suitCounts[card.suit] = (suitCounts[card.suit] || 0) + 1;
+    }
+
+    return { valueCounts, suitCounts };
+}
+
+function isFlush(deck) { //calculates if a deck has a flush
+    const suits = deck.map(card => card.suit);
+    return suits.every(suit => suit === suits[0]);
+}
+
+function isStraight(values) { //calculates if a deck has a straight
+    values.sort((a, b) => a - b);
+    for (let i = 0; i < values.length - 1; i++) {
+        if (values[i] + 1 !== values[i + 1]) {
+        return false;
+        }
+    }
+    return true;
+}
+
+function getHandRank(deck) { //gets rank of hand
+    const { valueCounts, suitCounts } = getCardCounts(deck);
+    const values = Object.keys(valueCounts).map(Number);
+    const counts = Object.values(valueCounts);
+    const isFlushHand = isFlush(deck);
+    const isStraightHand = isStraight(values);
+
+    if (isFlushHand && isStraightHand && Math.max(...values) === 14) return 'Royal Flush';
+    if (isFlushHand && isStraightHand) return 'Straight Flush';
+    if (counts.includes(4)) return 'Four of a Kind';
+    if (counts.includes(3) && counts.includes(2)) return 'Full House';
+    if (isFlushHand) return 'Flush';
+    if (isStraightHand) return 'Straight';
+    if (counts.includes(3)) return 'Three of a Kind';
+    if (counts.filter(count => count === 2).length === 2) return 'Two Pair';
+    if (counts.includes(2)) return 'Pair';
+
+    return 'High Card';
+}
+
+function mult_analyzer(deck) { //uses hand rank to attribute right multiplier
+    const bestHand = getHandRank(deck);
+    return handRanks[bestHand];
+}
+
+
 const deck = new Deck();
 
 let card1,card2,card3,card4,card5,playerCard1,playerCard2;
@@ -110,19 +176,13 @@ function deal (){
 
 }
 
-function mult_analyzer (){
-    //takes currently flipped cards (card.flipped)
-    //if matches various pokerhands, improves the mult
-    //mult just based on how rare the hand is 
-}
-
-
 
 function nextStep(e1){
     if (!card1.flipped){ //Second Round
         required = 50; // placeholder
-        total_value = playerCard1.value + playerCard2.value + card1.value + card2.value + card3.value;
-        mult = 1 // placeholder
+        active_deck = [playerCard1, playerCard2, card1, card2, card3]
+        total_value = playerCard1.value + playerCard2.value + card1.value + card2.value + card3.value; //change this now for deck
+        mult = mult_analyzer(active_deck) // ADD MULT_ANALYZER DOWN LINE, KEEPS CHECKING BASED ON THE NEW CARDS
         total_all = total_value * mult 
         
         card1.flip();

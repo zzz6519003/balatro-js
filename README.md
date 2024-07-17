@@ -1,4 +1,5 @@
 Todo list:
-- give mult ability that changes depending on the type of hand, combine that and value into total value 
+- mult analyzer works but now must be attributed to the other rounds
 - Stats on how many rounds you've won in total, consecutively
 - required score scales up as you win rounds (or is just random?)
+- clean up total value to use active_deck
