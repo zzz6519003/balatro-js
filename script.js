@@ -194,8 +194,9 @@ function nextStep(e1){
         document.getElementById('mult').innerHTML = "Mult:" + mult;
         document.getElementById('total').innerHTML = "Total:" + total_all;
     } else if (!card4.flipped) { //Third Round
+        active_deck = [playerCard1, playerCard2, card1, card2, card3, card4]
         total_value = total_value + card4.value;
-        mult = 1 // placeholder
+        mult = mult_analyzer(active_deck)
         total_all = total_value * mult 
 
         card4.flip();
@@ -205,8 +206,9 @@ function nextStep(e1){
         document.getElementById('total').innerHTML = "Total:" + total_all;
 
     } else if (!card5.flipped) { // Last Round
+        active_deck = [playerCard1, playerCard2, card1, card2, card3, card4, card5]
         total_value = total_value + card5.value;
-        mult = 1 // placeholder
+        mult = mult_analyzer(active_deck)
         total_all = total_value * mult 
 
         card5.flip();
