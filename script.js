@@ -1,5 +1,8 @@
 //base code by 101computing.net
 
+let rounds_won = 0;
+let rounds_lost = 0;
+
 class Deck {
     constructor(){
         this.deck = [];
@@ -179,7 +182,7 @@ function deal (){
 
 function nextStep(e1){
     if (!card1.flipped){ //Second Round
-        required = 50; // placeholder
+        required = Math.floor(Math.random() * (251 - 25) + 25); // random requirement between 25 and 250
         active_deck = [playerCard1, playerCard2, card1, card2, card3]
         total_value = playerCard1.value + playerCard2.value + card1.value + card2.value + card3.value; //change this now for deck
         mult = mult_analyzer(active_deck) // ADD MULT_ANALYZER DOWN LINE, KEEPS CHECKING BASED ON THE NEW CARDS
@@ -218,9 +221,13 @@ function nextStep(e1){
 
         if (total_all >= required){
             document.getElementById('win').innerHTML = "You won!";
+            rounds_won += 1;
+            document.getElementById('win_stat').innerHTML = "Rounds won:" + rounds_won;
             //change the required to a higher number
         } else {
             document.getElementById('win').innerHTML = "You lost!";
+            rounds_lost += 1;
+            document.getElementById('lost_stat').innerHTML = "Rounds lost:" + rounds_lost;
         }
 
         e1.innerHTML="New Round";
